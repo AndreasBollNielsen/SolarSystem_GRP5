@@ -1,11 +1,30 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
+﻿
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <h1>Hello to you! Kagemand</h1>
 
-    <h1>hello world!</h1>
+    <div class="container">
+    <h1 class="display-4">@ViewData["title"]</h1>
+
+
+        <form asp-action="SelectPage">
+            <div class="row"> 
+                '
+
+                <div class="col-md-6">
+
+                    <input id="controller" name="submit" type="submit" value="Controller" />
+                    
+                </div>
+
+                <div class="col-md-6">
+
+                    <input id="controller" name="submit" type="submit" value="Client" />
+                </div>
+
+
+                '
+            </div>
+        </form>
+    </div>
+
+
 </div>

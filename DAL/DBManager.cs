@@ -29,7 +29,7 @@ namespace SolarSystem_GRP5.DAL
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("GetPlanets", con);
             cmd.CommandType = CommandType.StoredProcedure;
-
+            //cmd.Parameters.AddWithValue("@culture", culture);
             con.Open();
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -64,32 +64,41 @@ namespace SolarSystem_GRP5.DAL
 
             while (reader.Read())
             {
-                planetInfo = new PlanetInfo()
+                try
                 {
-                    Name = (string)reader["plane_name"],
-                    Diameter = (float)reader["diameter"],
-                    Moons = (int)reader["moons"],
-                    Temperature = (float)reader["temperature"],
-                    Materials = (string)reader["materials"],
-                    Atmosphere = (string)reader["atmosphere"],
-                    Distance_from_sun = (string)reader["distance_from_sun"],
-                    Orbit_speed = (int)reader["orbit_speed"],
-                    Laterial_rotation_time = (int)reader["lateral_rotation_time"],
-                    Description = (string)reader["description"]
-                };
+                    planetInfo = new PlanetInfo()
+                    {
+                        Name = (string)reader["planet_name"],
+                        Diameter = (double)reader["diameter"],
+                        Moons = (int)reader["moons"],
+                        Materials = (string)reader["materials"],
+                        Atmosphere = (string)reader["atmosphere"],
+                        Distance_from_sun = (double)reader["distance_from_sun"],
+                        Orbit_speed = (double)reader["orbit_speed"],
+                        Laterial_rotation_time = (double)reader["lateral_rotation_time"],
+                        Description = (string)reader["planet_description"]
+                    };
+
+                   
+                }
+                catch (System.Exception e)
+                {
+                    System.Console.WriteLine(e);
+                    throw;
+                }
+               
 
             }
 
             return planetInfo;
         }
 
+        //get list of languages
         internal List<Language> GetLanguages()
         {
             List<Language> languages = new List<Language>();
 
             SqlConnection con = new SqlConnection(connectionString);
-
-
             SqlCommand cmd = new SqlCommand("GetLanguages", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -98,16 +107,13 @@ namespace SolarSystem_GRP5.DAL
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                //itemLines.Add(
-                //    new ItemLineModel(
-                //        (int)reader["Quantity"],
-                //        new ModelModel(
-                //            (string)reader["modelName"],
-                //            "N/A - Irrelevant to the context",
-                //            new CategoryModel((string)reader["categoryName"])
-                //            )
-                //        )
-                //    );
+                Language language = new Language
+                {
+                    ID = (int)reader["language_id"],
+                    Name = (string)reader["language_name"],
+                    Culture = (string)reader["language_culture"]
+                };
+                languages.Add(language);
             }
             con.Close();
             cmd.Parameters.Clear();
@@ -115,11 +121,60 @@ namespace SolarSystem_GRP5.DAL
             return languages;
         }
 
-        internal StringResource GetStringValue(string resourceKey, int languageID)
+        internal StringResource GetStringValue(string cultureName, string stringName)
         {
             StringResource resource = new StringResource();
 
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("GetStringData", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@culture", cultureName);
+            cmd.Parameters.AddWithValue("@name", stringName);
+
+
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                StringResource res = new StringResource
+                {
+                    Name = (string)reader["name"],
+                    Value =(string)reader["value"],
+                    ID = (int)reader["label_id"]
+                };
+
+                resource = res;
+            }
+
             return resource;
+        }
+
+        internal List<StringResource> GetPageStringValues(string cultureName, string pageName)
+        {
+
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("GetPageStringData", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@culture", cultureName);
+            cmd.Parameters.AddWithValue("@name", pageName);
+
+           List< StringResource> resources = new List<StringResource>();
+
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                StringResource res = new StringResource
+                {
+                    Name = (string)reader["name"],
+                    Value = (string)reader["value"],
+                    ID = (int)reader["label_id"]
+                };
+
+                resources.Add( res);
+            }
+
+            return resources;
         }
     }
 }

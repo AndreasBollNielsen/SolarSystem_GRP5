@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using SolarSystem_GRP5.DAL;
 using SolarSystem_GRP5.Services;
@@ -11,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SolarSystem_GRP5
@@ -27,28 +30,38 @@ namespace SolarSystem_GRP5
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ILanguageService, LanguageService>();
+            //services.AddScoped<ILanguageService, LanguageService>();
             //services.AddScoped<ILocalizationService, LocalizationService>();
-
-           
+            services.AddSession();
+            services.AddDistributedMemoryCache();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddLocalization();
 
             services.AddControllersWithViews().AddViewLocalization();
 
+            DBManager dbContext = new DBManager(Configuration);
             //var serviceProvider = BuildServiceProvider(services);
             //var languageService = serviceProvider.GetRequiredService<ILanguageService>();
             //var languages = languageService.GetLanguages();
-            //var cultures = languages.Select(x => new CultureInfo(x.Culture)).ToArray();
+            var languages = dbContext.GetLanguages();
+            List<CultureInfo> cultures = new List<CultureInfo>();
+            foreach (var lang in languages)
+            {
+                cultures.Add(new CultureInfo(lang.Culture));
+            }
 
-            //services.Configure<RequestLocalizationOptions>(options =>
-            //{
-            //    var englishCulture = cultures.FirstOrDefault(x => x.Name == "en-US");
-            //    options.DefaultRequestCulture = new RequestCulture(englishCulture?.Name ?? "en-US");
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
 
-            //    options.SupportedCultures = cultures;
-            //    options.SupportedUICultures = cultures;
-            //});
+                var englishCulture = cultures.FirstOrDefault(x => x.Name == "en-US");
+                options.DefaultRequestCulture = new RequestCulture(englishCulture?.Name ?? "en-US");
+
+                options.SupportedCultures = cultures;
+                options.SupportedUICultures = cultures;
+                Thread.CurrentThread.CurrentCulture = englishCulture;
+                Thread.CurrentThread.CurrentUICulture = englishCulture;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,7 +82,7 @@ namespace SolarSystem_GRP5
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             //app.UseAuthorization();
@@ -82,9 +95,6 @@ namespace SolarSystem_GRP5
             });
         }
 
-        ServiceProvider BuildServiceProvider(IServiceCollection services)
-        {
-            return services.BuildServiceProvider();
-        }
+
     }
 }

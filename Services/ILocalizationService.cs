@@ -8,7 +8,7 @@ namespace SolarSystem_GRP5.Services
 {
     interface ILocalizationService
     {
-        StringResource GetStringResource(string resourceKey, int languageID);
+        StringResource GetStringResource(string resourceKey, string languageID);
 
     }
 }

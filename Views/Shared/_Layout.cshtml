@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Builder
 @using Microsoft.AspNetCore.Localization
 @using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor httpContextAccessor;
 
 @inject IOptions<RequestLocalizationOptions> LocOptions
 
@@ -11,7 +13,28 @@
     var cultureItems = LocOptions.Value.SupportedUICultures
         .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
         .ToList();
+    var session = httpContextAccessor.HttpContext.Session.GetString("language");
+
+    if (session != null)
+    {
+        foreach (var culture in cultureItems)
+        {
+            if (culture.Value == session)
+            {
+                culture.Selected = true;
+            }
+        }
+        //ViewData["lang.nav.title"] = "hello";
+    }
+    else
+    {
+        ViewData["lang.nav.title"] = "Home";
+
+    }
+
+
 }
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,8 +44,10 @@
     <title>@ViewData["Title"] - SolarSystem_GRP5</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/test.css"/>
 </head>
 <body>
+
 
 
 
@@ -37,11 +62,9 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@ViewData["lang.nav.title"]</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
                         <li class="nav-item">
                             <form asp-action="ChangeLanguage" asp-controller="Home" method="post">
                                 <input type="hidden" id="returnUrl" name="returnUrl" value="@returnUrl" />
@@ -74,5 +97,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script src="~/js/SetLanguage.js"></script>
 </body>
 </html>

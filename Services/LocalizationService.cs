@@ -16,9 +16,9 @@ namespace SolarSystem_GRP5.Services
             _context = context;
         }
 
-        public StringResource GetStringResource(string resourceKey, int languageID)
+        public StringResource GetStringResource(string cultureName, string labelName)
         {
-            return _context.GetStringValue(resourceKey,languageID);
+            return _context.GetStringValue(cultureName, labelName);
         }
     }
 }

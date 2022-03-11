@@ -1,0 +1,37 @@
+﻿
+@model SolarSystem_GRP5.Models.ViewModels.SolarSystemView
+
+<div class="container">
+
+    <h1>this is the solar system page</h1>
+    <h2>@Model.Resources.StringValues["lang.planet.title"]</h2>
+
+
+    <div class="row">
+
+        <div class="col">
+
+
+            @for (int i = 0; i < Model.Planets.Count; i++)
+            {
+                <div class="row">
+                    <label>@Model.Resources.StringValues[$"lang.planet.{Model.Planets[i].Name}"]</label>
+                </div>
+            }
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<script src="~/js/site.js"></script>
