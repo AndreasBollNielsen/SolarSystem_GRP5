@@ -151,28 +151,36 @@ namespace SolarSystem_GRP5.DAL
 
         internal List<StringResource> GetPageStringValues(string cultureName, string pageName)
         {
-
-            SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("GetPageStringData", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@culture", cultureName);
-            cmd.Parameters.AddWithValue("@name", pageName);
-
-           List< StringResource> resources = new List<StringResource>();
-
-            con.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+                List<StringResource> resources = new List<StringResource>();
+            try
             {
-                StringResource res = new StringResource
-                {
-                    Name = (string)reader["name"],
-                    Value = (string)reader["value"],
-                    ID = (int)reader["label_id"]
-                };
+                SqlConnection con = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("GetPageStringData", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@culture", cultureName);
+                cmd.Parameters.AddWithValue("@name", pageName);
 
-                resources.Add( res);
+
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    StringResource res = new StringResource
+                    {
+                        Name = (string)reader["name"],
+                        Value = (string)reader["value"],
+                        ID = (int)reader["label_id"]
+                    };
+
+                    resources.Add(res);
+                }
             }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+           
 
             return resources;
         }

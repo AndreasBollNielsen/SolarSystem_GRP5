@@ -37,20 +37,20 @@ namespace SolarSystem_GRP5
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddLocalization();
-
             services.AddControllersWithViews().AddViewLocalization();
 
-            DBManager dbContext = new DBManager(Configuration);
-            //var serviceProvider = BuildServiceProvider(services);
-            //var languageService = serviceProvider.GetRequiredService<ILanguageService>();
-            //var languages = languageService.GetLanguages();
-            var languages = dbContext.GetLanguages();
-            List<CultureInfo> cultures = new List<CultureInfo>();
-            foreach (var lang in languages)
-            {
-                cultures.Add(new CultureInfo(lang.Culture));
-            }
 
+            //DBManager dbContext = new DBManager(Configuration);
+
+           // var languages = dbContext.GetLanguages();
+           
+
+           List <CultureInfo> cultures = new List<CultureInfo>();
+            //foreach (var lang in languages)
+            //{
+            //    cultures.Add(new CultureInfo(lang.Culture));
+            //}
+            cultures.Add(new CultureInfo("EN-US"));
             services.Configure<RequestLocalizationOptions>(options =>
             {
 

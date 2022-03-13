@@ -1,11 +1,65 @@
 ﻿
 @model SolarSystem_GRP5.Models.ViewModels.PlanetInfoView
 
-<div class="container">
-
-    <h1>this is the planet info page</h1>
-    <h2>@Model.Resources.StringValues["lang.planet.title"]</h2>
+<link rel="stylesheet" href="~/css/infostyle.css">
+<script src="~/js/site.js"></script>
 
 
+
+
+<div class="row">
+    <div class="col-md-6">
+        <table>
+
+            <tr class="h1" name="planet">
+                <th>@Model.Resources.StringValues["lang.planet.title"]</th>
+            </tr>
+
+            <tr class="h2">
+                <th>@Model.Resources.StringValues["lang.planet.name"]</th>
+                <td>@Model.PlanetInfo.Name</td>
+            </tr>
+
+            <tr class="h2">
+                <th>@Model.Resources.StringValues["lang.planet.temperature"]</th>
+                <td>@Model.PlanetInfo.Temperature</td>
+            </tr>
+
+            <tr class="h2">
+                <th>@Model.Resources.StringValues["lang.planet.materials"]</th>
+                <td>@Model.PlanetInfo.Materials</td>
+            </tr>
+
+            <tr class="h2">
+                <th>@Model.Resources.StringValues["lang.planet.dist"]</th>
+                <td>@Model.PlanetInfo.Distance_from_sun</td>
+            </tr>
+
+            <tr class="h3">
+                <th>@Model.Resources.StringValues["lang.planet.diameter"]</th>
+                <td>@Model.PlanetInfo.Diameter</td>
+            </tr>
+
+            <tr class="h4">
+                <th>@Model.Resources.StringValues["lang.planet.moons"]</th>
+                <td>@Model.PlanetInfo.Moons</td>
+            </tr>
+
+            <tr class="h5">
+                <th>@Model.Resources.StringValues["lang.planet.atmosphere"]</th>
+                <td>@Model.PlanetInfo.Atmosphere</td>
+            </tr>
+
+            <tr class="h5">
+                <th>@Model.Resources.StringValues["lang.planet.description"]</th>
+                <td>@Model.PlanetInfo.Description</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <img src="@Model.Planet.ImagePath" width="300">
+       @* <img class="phobos" src="~/Graphics/phobos.png">*@
+    </div>
 </div>
 

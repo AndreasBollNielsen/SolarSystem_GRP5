@@ -55,18 +55,63 @@ namespace SolarSystem_GRP5.Controllers
             if (submit == "Controller")
             {
                 SolarSystemView viewmodel = new SolarSystemView();
-                viewmodel.Planets = logic.GetPlanets();
-                viewmodel.Resources = logic.GetPageResources("lang.planet");
-              
-                //ViewData["lang.solar.title"] = logic.GetResource("lang.cake");
+                // viewmodel.Planets = logic.GetPlanets();
+                //   viewmodel.Resources = logic.GetPageResources("lang.planet");
+
+                viewmodel.Planets = new List<Planet>() { new Planet { Name = "Mars", ImagePath = "/Graphics/mars.png" } };
+                viewmodel.Resources = new PageResources
+                {
+                    StringValues = new Dictionary<string, string>() { { "lang.planet.mars", "Mars" },
+                    { "lang.planet.earth", "Jorden" },
+                { "lang.planet.venus", "Venus" },
+                { "lang.planet.jupiter", "Jupiter" },
+                { "lang.planet.neptune", "Neptun" },
+                { "lang.planet.uranus", "Uranus" },
+                { "lang.planet.sun", "Sol" },
+                { "lang.planet.pluto", "Pluto" },
+                { "lang.planet.mercury", "Merkur" },
+                { "lang.planet.saturn", "Saturn" },
+                { "lang.planet.title", "Solsystemet" },}
+                };
+
                 return View("SolarSystem", viewmodel);
             }
             else
             {
                 PlanetInfoView viewmodel = new PlanetInfoView();
-                viewmodel.PlanetInfo1 = logic.GetPlanetInfo("Mars");
-                viewmodel.Resources = logic.GetPageResources("lang.planet");
-               
+                //viewmodel.PlanetInfo1 = logic.GetPlanetInfo("Mars");
+                //viewmodel.Resources = logic.GetPageResources("lang.planet");
+                #region MyRegion
+                viewmodel.PlanetInfo = new PlanetInfo
+                {
+                    Atmosphere = "cheese",
+                    Description = "this is a planet",
+                    Distance_from_sun = 1.0000f,
+                    Diameter = 35.000,
+                    Laterial_rotation_time = 15.5,
+                    Materials = "cake",
+                    Moons = 5,
+                    Name = "mars",
+                    Orbit_speed = 100.5,
+                    Temperature = 9999.9
+                };
+
+                viewmodel.Resources = new PageResources { StringValues = new Dictionary<string, string>() { { "lang.planet.atmosphere", "atmosfære" }, 
+                    { "lang.planet.description", "beskrivelse" },
+                { "lang.planet.dist", "afstand fra solen" },
+                { "lang.planet.diameter", "diameter" },
+                { "lang.planet.lat", "lateral rotationshastighed" },
+                { "lang.planet.materials", "materialer" },
+                { "lang.planet.moons", "måner" },
+                { "lang.planet.name", "navn" },
+                { "lang.planet.orbit", "kredsløb" },
+                { "lang.planet.temperature", "temperatur" },
+                { "lang.planet.title", "information" },} };
+
+                viewmodel.Planet = new Planet { Name = "Mars", ImagePath = "/Graphics/mars.png" };
+                #endregion
+
+
                 return View("PlanetInfo",viewmodel);
             }
 
@@ -85,6 +130,16 @@ namespace SolarSystem_GRP5.Controllers
             HttpContext.Session.SetString("language",culture);
             ViewData["lang.nav.title"] = "en test";
             return LocalRedirect(returnUrl);
+        }
+
+        [HttpPost]
+        public IActionResult test(string id)
+        {
+            Console.WriteLine(id);
+
+            //send a broadcast via websocket to server with name of planet
+
+            return View();
         }
     }
 }

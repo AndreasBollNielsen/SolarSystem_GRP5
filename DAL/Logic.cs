@@ -20,26 +20,28 @@ namespace SolarSystem_GRP5.DAL
 
         public List<Planet> GetPlanets()
         {
-            DBManager dbContext = new DBManager(configuration);
-            var currentCulture = Thread.CurrentThread.CurrentUICulture.Name;
-            List<Planet> planets = dbContext.GetPlanets();
-
+            //DBManager dbContext = new DBManager(configuration);
+            //var currentCulture = Thread.CurrentThread.CurrentUICulture.Name;
+            //List<Planet> planets = dbContext.GetPlanets();
+            List<Planet> planets = new List<Planet>();
             return planets;
         }
 
         public PlanetInfo GetPlanetInfo(string planetName)
         {
 
-            DBManager dbContext = new DBManager(configuration);
-            PlanetInfo planetInfo = dbContext.GetInfo(planetName);
+            //DBManager dbContext = new DBManager(configuration);
+            //PlanetInfo planetInfo = dbContext.GetInfo(planetName);
+            PlanetInfo planetInfo = new PlanetInfo();
             return planetInfo;
         }
         public string GetResource(string labelName)
         {
-            DBManager dbContext = new DBManager(configuration);
-            var currentCulture = Thread.CurrentThread.CurrentUICulture.Name;
+            //DBManager dbContext = new DBManager(configuration);
+            //var currentCulture = Thread.CurrentThread.CurrentUICulture.Name;
 
-            StringResource resource = dbContext.GetStringValue(currentCulture, labelName);
+            //StringResource resource = dbContext.GetStringValue(currentCulture, labelName);
+            StringResource resource = new StringResource();
             return resource.Value;
         }
 
@@ -47,14 +49,14 @@ namespace SolarSystem_GRP5.DAL
         {
             PageResources resources = new PageResources();
 
-            DBManager dbContext = new DBManager(configuration);
-            var currentCulture = Thread.CurrentThread.CurrentUICulture.Name;
+            //DBManager dbContext = new DBManager(configuration);
+            //var currentCulture = Thread.CurrentThread.CurrentUICulture.Name;
 
-            List<StringResource> resourceList = dbContext.GetPageStringValues(currentCulture, pageLabels);
-            foreach (var stringVal in resourceList)
-            {
-                resources.StringValues.Add(stringVal.Name, stringVal.Value);
-            }
+            //List<StringResource> resourceList = dbContext.GetPageStringValues(currentCulture, pageLabels);
+            //foreach (var stringVal in resourceList)
+            //{
+            //    resources.StringValues.Add(stringVal.Name, stringVal.Value);
+            //}
             return resources;
         }
     }

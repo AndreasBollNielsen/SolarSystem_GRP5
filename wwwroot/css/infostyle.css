@@ -1,0 +1,93 @@
+
+body {
+    background-image: url(../Graphics/stars.jpg);
+}
+
+table {
+    border-radius: 25px;
+    padding: 50px;
+    background-color: #333;
+    border-collapse: separate;
+    border-spacing: 20pt
+}
+
+TD {
+    border: inset 2pt
+}
+
+    TD.special {
+        border: inset 1pt
+    }
+
+
+
+.h1 {
+    font-size: xx-large;
+    font-family: 'Trebuchet MS', sans-serif;
+    color: white;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+    padding-bottom: 4px;
+    position: relative;
+    text-decoration: none;
+}
+
+    .h1 ::after {
+        background: #f00;
+        background: linear-gradient(to right, transparent 0%, rgb(255, 255, 255) 50%, transparent 100%);
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+    }
+
+.h2 {
+    font-size: large;
+    font-family: 'Trebuchet MS', sans-serif;
+    background-color: #333;
+    color: #e0dfdc;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+    text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222,
+}
+
+.h3 {
+    font-size: large;
+    font-family: 'Trebuchet MS', sans-serif;
+    background-color: #333;
+    color: #e0dfdc;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+    text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222,
+}
+
+.h4 {
+    font-size: large;
+    font-family: 'Trebuchet MS', sans-serif;
+    background-color: #333;
+    color: #e0dfdc;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+    text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222,
+}
+
+.h5 {
+    font-size: large;
+    font-family: 'Trebuchet MS', sans-serif;
+    background-color: #333;
+    color: #e0dfdc;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+    text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222,
+}
+
+img {
+    width: 350pt;
+    /* position: absolute;*/
+    position: center;
+    right: 20%;
+    top: 13%;
+}
+
+.phobos {
+    width: 90pt;
+    /* position: absolute;*/
+    right: 55%;
+}
