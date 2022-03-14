@@ -3,8 +3,9 @@
 @*<script src="~/js/site.js"></script>*@
 @*<script src="~/js/SolarScript.js"></script>*@
 <link rel="stylesheet" href="~/css/SolarSystemStyle.css">
-<div class="container">
+<link rel="stylesheet" href="~/css/stylelist.css">
 
+<div class="container">
     <h1 name="planet">this is the solar system page</h1>
   @*  <h2>@Model.Resources.StringValues["lang.planet.title"]</h2>*@
 
@@ -23,161 +24,198 @@
         </div>
 
     </div>*@
-
-
-
-    
-
-
-
-
-
 </div>
 
+<div class="myList">
+    <ul>
+      <table id="info">
+          <tr class="h1">
+    <th><h1 style="opacity: 100% !important; font-size:2vw ">Planet list</h1></th>
+          </tr>
+          <tr> 
+              <th><button class="h2" type="button" id="Mercury" > Mercury </button>
+              <script type="text/javascript">
+                  document.getElementById("Mercury").onclick = function () {
+                      location.href = "infobox (1).html"
+                  }
+              </script>
+          </th>
+          </tr>
+          <tr>
+              <th><button class="h2" type="button" id="Venus" onclick="myFunction()"> Venus </button></th>
+              <script type="text/javascript">
+                  document.getElementById("Venus").onclick = function () {
+                      location.href = "infobox.html"
+                  }
+              </script>
+          </tr>
+          <tr>
+              <th><button class="h2" type="button" id="Earth" onclick="myFunction()"> Earth </button></th>
+              <script type="text/javascript">
+                  document.getElementById("Earth").onclick = function () {
+                      location.href = "infobox.html"
+                  }
+              </script>
+          </tr>
+          <tr>
+              <th><button class="h2" type="button" id="Mars" onclick="myFunction()"> Mars </button></th>
+              <script type="text/javascript">
+                  document.getElementById("Mars").onclick = function () {
+                      location.href = "infobox.html"
+                  }
+              </script>
+          </tr>
+          <tr>
+              <th><button class="h2" type="button" id="Jupiter" onclick="myFunction()"> Jupiter </button></th>
+              <script type="text/javascript">
+                  document.getElementById("Jupiter").onclick = function () {
+                      location.href = "infobox.html"
+                  }
+              </script>
+          </tr>
+          <tr>
+              <th><button class="h2" type="button" id="Saturn" onclick="myFunction()"> Saturn </button></th>
+              <script type="text/javascript">
+                  document.getElementById("Saturn").onclick = function () {
+                      location.href = "infobox.html"
+                  }
+              </script>
+          </tr>
+          <tr>
+              <th><button class="h2" type="button" id="Uranus" onclick="myFunction()"> Uranus </button></th>
+              <script type="text/javascript">
+                  document.getElementById("Uranus").onclick = function () {
+                      location.href = "infobox.html"
+                  }
+              </script>
+          </tr>
+          <tr>
+              <th><button class="h2" type="button" id="Neptune" onclick="myFunction()"> Neptune </button></th>
+              <script type="text/javascript">
+                  document.getElementById("Neptune").onclick = function () {
+                      location.href = "infobox.html"
+                  }
+              </script>
+          </tr>
+          <tr>
+              <th><button class="h2" type="button" id="Pluto" onclick="myFunction()"> Pluto </button></th>
+              <script type="text/javascript">
+                  document.getElementById("Pluto").onclick = function () {
+                      location.href = "infobox.html"
+                  }
+              </script>
+          </tr>
 
-<div class="opening hide-UI view-2D zoom-large data-close controls-close">
+      </table>
+  </ul>
+  </div>
 
-    <div id="navbar">
-        <a id="toggle-data" href="#data"><i class="icon-data"></i>Data</a>
-       @*  <h1>3D Solar System<br><span>by <a href="https://twitter.com/JulianGarnier" target="_blank">@JulianGarnier</a></span></h1>*@
-        <a id="toggle-controls" href="#controls"><i class="icon-Qcontrols"></i>Controls</a>
-    </div>
-    <div id="data">
-        <a class="sun" id="sunId" title="sun" href="#sunspeed">Sun</a>
-        <a class="mercury" title="mercury" href="#mercuryspeed">Mercury</a>
-        <a class="venus" title="venus" href="#venusspeed">Venus</a>
-        <a class="earth active" title="earth" href="#earthspeed">Earth</a>
-        <a class="mars" title="mars" href="#marsspeed">Mars</a>
-        <a class="jupiter" title="jupiter" href="#jupiterspeed">Jupiter</a>
-        <a class="saturn" title="saturn" href="#saturnspeed">Saturn</a>
-        <a class="uranus" title="uranus" href="#uranusspeed">Uranus</a>
-        <a class="neptune" title="neptune" href="#neptunespeed">Neptune</a>
-    </div>
-    <div id="controls">
-        <label class="set-view">
-            <input type="checkbox">
-        </label>
-        <label class="set-zoom">
-            <input type="checkbox">
-        </label>
-        <label>
-            <input type="radio" class="set-speed" name="scale" checked>
-            <span>Speed</span>
-        </label>
-        <label>
-            <input type="radio" class="set-size" name="scale">
-            <span>Size</span>
-        </label>
-        <label>
-            <input type="radio" class="set-distance" name="scale">
-            <span>Distance</span>
-        </label>
-    </div>
-
-   
-
+  <div class="myBox opening hide-UI view-2D zoom-large data-close controls-close">
     <div id="universe" class="scale-stretched">
-        <div id="galaxy">
-            <div id="solar-system" class="earth">
-                <div id="mercury" class="orbit">
-                    <div class="pos">
-                        <div class="planet" name="planet">
-                            <dl class="infos">
-                                <dt>Mercury</dt>
-                                <dd><span></span></dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-                <div id="venus" class="orbit">
-                    <div class="pos">
-                        <div class="planet" name="planet">
-                            <dl class="infos">
-                                <dt>Venus</dt>
-                                <dd><span></span></dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-                <div id="earth" class="orbit">
-                    <div class="pos">
-                        <div class="orbit">
-                            <div class="pos">
-                                <div class="moon"></div>
-                            </div>
-                        </div>
-                        <div class="planet" name="planet">
-                            <dl class="infos">
-                                <dt>Earth</dt>
-                                <dd><span></span></dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-                <div id="mars" class="orbit" name="planet">
-                    <div class="pos">
-                        <div class="planet">
-                            <dl class="infos">
-                                <dt>Mars</dt>
-                                <dd><span></span></dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-                <div id="jupiter" class="orbit" name="planet">
-                    <div class="pos">
-                        <div class="planet">
-                            <dl class="infos">
-                                <dt>Jupiter</dt>
-                                <dd><span></span></dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-                <div id="saturn" class="orbit" name="planet">
-                    <div class="pos">
-                        <div class="planet">
-                            <div class="ring"></div>
-                            <dl class="infos">
-                                <dt>Saturn</dt>
-                                <dd><span></span></dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-                <div id="uranus" class="orbit" name="planet">
-                    <div class="pos">
-                        <div class="planet">
-                            <dl class="infos">
-                                <dt>Uranus</dt>
-                                <dd><span></span></dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-                <div id="neptune" class="orbit" name="planet">
-                    <div class="pos">
-                        <div class="planet">
-                            <dl class="infos">
-                                <dt>Neptune</dt>
-                                <dd><span></span></dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-                <div id="sun" name="planet">
-                    <dl class="infos">
-                        <dt>Sun</dt>
-                        <dd><span></span></dd>
-                    </dl>
-                </div>
+      <div id="galaxy">
+        <div id="solar-system" class="earth">
+          <div id="mercury" class="orbit" name="planet">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Mercury</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
             </div>
+          </div>
+          <div id="venus" class="orbit" name="planet">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Venus</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="earth" class="orbit" name="planet">
+            <div class="pos">
+              <div class="orbit">
+                <div class="pos">
+                  <div class="moon"></div>
+                </div>
+              </div>
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Earth</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="mars" class="orbit" name="planet">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Mars</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="jupiter" class="orbit" name="planet">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Jupiter</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="saturn" class="orbit" name="planet">
+            <div class="pos">
+              <div class="planet">
+                <div class="ring"></div>
+                <dl class="infos">
+                  <dt>Saturn</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="uranus" class="orbit" name="planet">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Uranus</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="neptune" class="orbit" name="planet">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Neptune</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="sun" name="planet">
+            <dl class="infos">
+              <dt>Sun</dt>
+              <dd><span></span></dd>
+            </dl>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-
-</div>
-
-
-
+    <div class="">
+    <table id="table">
+      <tr class="quiz"> 
+          <th>Quiz</th>
+      </tr>      
+  </table>
+  </div>
 <script src="~/js/ClickablePlanets.js"></script>
