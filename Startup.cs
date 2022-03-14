@@ -40,17 +40,17 @@ namespace SolarSystem_GRP5
             services.AddControllersWithViews().AddViewLocalization();
 
 
-            //DBManager dbContext = new DBManager(Configuration);
+            DBManager dbContext = new DBManager(Configuration);
 
-           // var languages = dbContext.GetLanguages();
-           
+            var languages = dbContext.GetLanguages();
 
-           List <CultureInfo> cultures = new List<CultureInfo>();
-            //foreach (var lang in languages)
-            //{
-            //    cultures.Add(new CultureInfo(lang.Culture));
-            //}
-            cultures.Add(new CultureInfo("EN-US"));
+
+            List <CultureInfo> cultures = new List<CultureInfo>();
+            foreach (var lang in languages)
+            {
+                cultures.Add(new CultureInfo(lang.Culture));
+            }
+           // cultures.Add(new CultureInfo("EN-US"));
             services.Configure<RequestLocalizationOptions>(options =>
             {
 
