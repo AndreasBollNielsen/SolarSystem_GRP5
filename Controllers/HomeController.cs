@@ -65,11 +65,11 @@ namespace SolarSystem_GRP5.Controllers
             else
             {
                 PlanetInfoView viewmodel = new PlanetInfoView();
-                viewmodel.PlanetInfo = logic.GetPlanetInfo("Uranus");
+                viewmodel.PlanetInfo = logic.GetPlanetInfo("mars");
                 viewmodel.Resources = logic.GetPageResources("lang.planet");
                 
 
-                viewmodel.Planet = new Planet { Name = "Mars", ImagePath = "/Graphics/mars.png" };
+                viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
                
 
 
