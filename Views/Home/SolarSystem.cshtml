@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="~/css/stylelist.css">
 
 <div class="container">
-    <h1 name="planet">this is the solar system page</h1>
   @*  <h2>@Model.Resources.StringValues["lang.planet.title"]</h2>*@
 
 
@@ -33,7 +32,16 @@
     <th><h1 style="opacity: 100% !important; font-size:2vw ">Planet list</h1></th>
           </tr>
           <tr> 
-              <th><button class="h2" type="button" id="Mercury" > Mercury </button>
+              <th><button class="h2" type="button" >@Model.Resources.StringValues["lang.solar.sun"]</button>
+              <script type="text/javascript">
+                  document.getElementById("sun").onclick = function () {
+                      location.href = "infobox (1).html"
+                  }
+              </script>
+          </th>
+          </tr>
+          <tr> 
+              <th><button class="h2" type="button" id="Mercury" >@Model.Resources.StringValues["lang.solar.mercury"]</button>
               <script type="text/javascript">
                   document.getElementById("Mercury").onclick = function () {
                       location.href = "infobox (1).html"
@@ -42,7 +50,7 @@
           </th>
           </tr>
           <tr>
-              <th><button class="h2" type="button" id="Venus" onclick="myFunction()"> Venus </button></th>
+              <th><button class="h2" type="button" id="Venus" onclick="myFunction()">@Model.Resources.StringValues["lang.solar.venus"]</button></th>
               <script type="text/javascript">
                   document.getElementById("Venus").onclick = function () {
                       location.href = "infobox.html"
@@ -50,7 +58,7 @@
               </script>
           </tr>
           <tr>
-              <th><button class="h2" type="button" id="Earth" onclick="myFunction()"> Earth </button></th>
+              <th><button class="h2" type="button" id="Earth" onclick="myFunction()">@Model.Resources.StringValues["lang.solar.earth"]</button></th>
               <script type="text/javascript">
                   document.getElementById("Earth").onclick = function () {
                       location.href = "infobox.html"
@@ -58,7 +66,7 @@
               </script>
           </tr>
           <tr>
-              <th><button class="h2" type="button" id="Mars" onclick="myFunction()"> Mars </button></th>
+              <th><button class="h2" type="button" id="Mars" onclick="myFunction()">@Model.Resources.StringValues["lang.solar.mars"]</button></th>
               <script type="text/javascript">
                   document.getElementById("Mars").onclick = function () {
                       location.href = "infobox.html"
@@ -66,7 +74,7 @@
               </script>
           </tr>
           <tr>
-              <th><button class="h2" type="button" id="Jupiter" onclick="myFunction()"> Jupiter </button></th>
+              <th><button class="h2" type="button" id="Jupiter" onclick="myFunction()">@Model.Resources.StringValues["lang.solar.jupiter"]</button></th>
               <script type="text/javascript">
                   document.getElementById("Jupiter").onclick = function () {
                       location.href = "infobox.html"
@@ -74,7 +82,7 @@
               </script>
           </tr>
           <tr>
-              <th><button class="h2" type="button" id="Saturn" onclick="myFunction()"> Saturn </button></th>
+              <th><button class="h2" type="button" id="Saturn" onclick="myFunction()">@Model.Resources.StringValues["lang.solar.saturn"]</button></th>
               <script type="text/javascript">
                   document.getElementById("Saturn").onclick = function () {
                       location.href = "infobox.html"
@@ -82,7 +90,7 @@
               </script>
           </tr>
           <tr>
-              <th><button class="h2" type="button" id="Uranus" onclick="myFunction()"> Uranus </button></th>
+              <th><button class="h2" type="button" id="Uranus" onclick="myFunction()">@Model.Resources.StringValues["lang.solar.uranus"]</button></th>
               <script type="text/javascript">
                   document.getElementById("Uranus").onclick = function () {
                       location.href = "infobox.html"
@@ -90,7 +98,7 @@
               </script>
           </tr>
           <tr>
-              <th><button class="h2" type="button" id="Neptune" onclick="myFunction()"> Neptune </button></th>
+              <th><button class="h2" type="button" id="Neptune" onclick="myFunction()">@Model.Resources.StringValues["lang.solar.neptune"]</button></th>
               <script type="text/javascript">
                   document.getElementById("Neptune").onclick = function () {
                       location.href = "infobox.html"

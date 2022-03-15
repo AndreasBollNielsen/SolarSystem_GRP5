@@ -5,61 +5,84 @@
 <script src="~/js/site.js"></script>
 
 
+<div>
+    <img src="@Model.Planet.ImagePath">
 
+    <table>
+        <tr class="h1"> 
+        <th>@Model.PlanetInfo.Name</th>
+        </tr>
 
-<div class="row">
-    <div class="col-md-6">
-        <table>
+        <tr class="h2">
+        <th>@Model.Resources.StringValues["lang.planet.diameter"]</th>
+        </tr>
 
-            <tr class="h1" name="planet">
-                <th>@Model.Resources.StringValues["lang.planet.title"]</th>
+        <tr class="hh">
+        <th>
+            <h2>
+                @Model.PlanetInfo.Diameter
+            </h2>
+        </th>
+        </tr>
+
+        <tr class="h3">
+        <th>@Model.Resources.StringValues["lang.planet.materials"]</th>
+        </tr>
+        
+        <tr class="hb">
+            <th>
+                <h3>
+                    @Model.PlanetInfo.Materials
+                </h3>
+            </th>
+            </tr>
+        
+        <tr class="h4">
+        <th>@Model.Resources.StringValues["lang.planet.dist"]</th>
+        </tr>
+
+        <tr class="ho">
+            <th>
+                <h4>
+                    @Model.PlanetInfo.Distance_from_sun
+                </h4>
+            </th>
             </tr>
 
-            <tr class="h2">
-                <th>@Model.Resources.StringValues["lang.planet.name"]</th>
-                <td>@Model.PlanetInfo.Name</td>
+        <tr class="h5">
+        <th>@Model.Resources.StringValues["lang.planet.moons"]</th>
+        </tr>
+
+        <tr class="hc">
+            <th>
+                <h5>
+                    @Model.PlanetInfo.Moons
+                </h5>
+            </th>
             </tr>
 
-            <tr class="h2">
-                <th>@Model.Resources.StringValues["lang.planet.temperature"]</th>
-                <td>@Model.PlanetInfo.Temperature</td>
+        <tr class="h6">
+        <th>@Model.Resources.StringValues["lang.planet.atmosphere"]</th>
+        </tr>
+
+        <tr class="hd">
+            <th>
+                <h6>
+                    @Model.PlanetInfo.Atmosphere
+                </h6>
+            </th>
             </tr>
 
-            <tr class="h2">
-                <th>@Model.Resources.StringValues["lang.planet.materials"]</th>
-                <td>@Model.PlanetInfo.Materials</td>
-            </tr>
+        <tr class="h7">
+        <th>@Model.Resources.StringValues["lang.planet.desc"]</th>
+        </tr>
 
-            <tr class="h2">
-                <th>@Model.Resources.StringValues["lang.planet.dist"]</th>
-                <td>@Model.PlanetInfo.Distance_from_sun</td>
+        <tr class="hi">
+            <th>
+                <p>
+                    @Model.PlanetInfo.Description
+                </p>
+            </th>
             </tr>
-
-            <tr class="h3">
-                <th>@Model.Resources.StringValues["lang.planet.diameter"]</th>
-                <td>@Model.PlanetInfo.Diameter</td>
-            </tr>
-
-            <tr class="h4">
-                <th>@Model.Resources.StringValues["lang.planet.moons"]</th>
-                <td>@Model.PlanetInfo.Moons</td>
-            </tr>
-
-            <tr class="h5">
-                <th>@Model.Resources.StringValues["lang.planet.atmosphere"]</th>
-                <td>@Model.PlanetInfo.Atmosphere</td>
-            </tr>
-
-            <tr class="h5">
-                <th>@Model.Resources.StringValues["lang.planet.desc"]</th>
-                <td>@Model.PlanetInfo.Description</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="col-md-6">
-        <img src="@Model.Planet.ImagePath" width="300">
-       @* <img class="phobos" src="~/Graphics/phobos.png">*@
-    </div>
+    </table>
 </div>
-

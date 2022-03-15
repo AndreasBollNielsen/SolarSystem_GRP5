@@ -71,3 +71,10 @@ body {
 }
 
 
+.mySelect {
+    position: fixed;
+    width: fit-content;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}

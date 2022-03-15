@@ -52,7 +52,7 @@
 
 
 
-    <header>
+@*    <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SolarSystem_GRP5</a>
@@ -67,22 +67,23 @@
                         </li>
 
                         <li class="nav-item">
-                            <form asp-action="ChangeLanguage" asp-controller="Home" method="post">
-                                <input type="hidden" id="returnUrl" name="returnUrl" value="@returnUrl" />
-                                <select id="culture"
-                                        name="culture"
-                                        class="form-control"
-                                        onchange="this.form.submit();"
-                                        asp-items="cultureItems"
-                                        asp-for="@requestCulture.RequestCulture.UICulture.Name">
-                                </select>
-                            </form>
+
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-    </header>
+    </header>*@
+    <form asp-action="ChangeLanguage" asp-controller="Home" method="post">
+        <input type="hidden" id="returnUrl" name="returnUrl" value="@returnUrl" />
+        <select id="culture"
+                name="culture"
+                class="form-control mySelect"
+                onchange="this.form.submit();"
+                asp-items="cultureItems"
+                asp-for="@requestCulture.RequestCulture.UICulture.Name">
+        </select>
+    </form>
     <div>
         @RenderBody()
     </div>
