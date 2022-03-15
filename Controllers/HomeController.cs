@@ -28,7 +28,7 @@ namespace SolarSystem_GRP5.Controllers
         {
             SetCulture();
             Logic logic = new Logic(configuration);
-            ViewData["title"] = logic.GetResource("lang.cake");
+           // ViewData["title"] = logic.GetResource("lang.cake");
 
             return View();
         }
@@ -65,9 +65,11 @@ namespace SolarSystem_GRP5.Controllers
             else
             {
                 PlanetInfoView viewmodel = new PlanetInfoView();
-                viewmodel.PlanetInfo = logic.GetPlanetInfo("mars");
+                viewmodel.PlanetInfo = logic.GetPlanetInfo("neptune");
                 viewmodel.Resources = logic.GetPageResources("lang.planet");
-                
+                viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
+                viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
+                viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
 
                 viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
                
@@ -77,6 +79,17 @@ namespace SolarSystem_GRP5.Controllers
             }
 
            
+        }
+
+        public IActionResult Quiz()
+        {
+            Logic logic = new Logic(configuration);
+            QuizView viewModel = new QuizView();
+
+            viewModel.Quiz_list = logic.GetQuiz();
+            viewModel.Resources = logic.GetPageResources("lang.quiz");
+
+            return View(viewModel);
         }
 
         [HttpPost]

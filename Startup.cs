@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using SolarSystem_GRP5.DAL;
-using SolarSystem_GRP5.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

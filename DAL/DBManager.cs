@@ -93,6 +93,44 @@ namespace SolarSystem_GRP5.DAL
             return planetInfo;
         }
 
+        internal List<Quiz> GetQuiz()
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("GetQuiz", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+
+            List<Quiz> quiz = new List<Quiz>();
+            Quiz question;
+            int counter = 1;
+            while (reader.Read())
+            {
+                try
+                {
+                    question = new Quiz()
+                    {
+                        Question = (string)reader[$"lang.quiz.question{counter}"],
+                        Answer = (string)reader[$"lang.quiz.rightAnswer{counter}"],
+                        Answers = new List<string>() { $"lang.quiz.q1{counter}.answer1", $"lang.quiz.q2{counter}.answer2", $"lang.quiz.q3{counter}.answer3", $"lang.quiz.q4{counter}.answer4" }
+                       
+                    };
+                    quiz.Add(question);
+                    counter++;
+                }
+                catch (System.Exception e)
+                {
+                    System.Console.WriteLine(e);
+                    throw;
+                }
+
+
+            }
+
+            return quiz;
+        }
+
         //get list of languages
         internal List<Language> GetLanguages()
         {

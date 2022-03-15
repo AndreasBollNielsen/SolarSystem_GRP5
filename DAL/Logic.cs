@@ -18,33 +18,45 @@ namespace SolarSystem_GRP5.DAL
             this.configuration = configuration;
         }
 
+        //get list of planets
         public List<Planet> GetPlanets()
         {
             DBManager dbContext = new DBManager(configuration);
             var currentCulture = Thread.CurrentThread.CurrentUICulture.Name;
             List<Planet> planets = dbContext.GetPlanets();
-           // List<Planet> planets = new List<Planet>();
+          
             return planets;
         }
 
+        //get planet data
         public PlanetInfo GetPlanetInfo(string planetName)
         {
 
             DBManager dbContext = new DBManager(configuration);
             PlanetInfo planetInfo = dbContext.GetInfo(planetName);
-          //// PlanetInfo planetInfo = new PlanetInfo();
+         
             return planetInfo;
         }
+
+        public List<Quiz> GetQuiz()
+        {
+            DBManager dbContext = new DBManager(configuration);
+            List<Quiz> quiz_list = dbContext.GetQuiz();
+            return quiz_list;
+        }
+
+        //get single string resource
         public string GetResource(string labelName)
         {
             DBManager dbContext = new DBManager(configuration);
             var currentCulture = Thread.CurrentThread.CurrentUICulture.Name;
 
             StringResource resource = dbContext.GetStringValue(currentCulture, labelName);
-           // StringResource resource = new StringResource();
+          
             return resource.Value;
         }
-
+      
+        //get page resources
         public PageResources GetPageResources(string pageLabels)
         {
             PageResources resources = new PageResources();
