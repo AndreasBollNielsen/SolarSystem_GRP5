@@ -26,22 +26,44 @@ window.onload = function () {
 
 };
 
+function SendData(data) {
+
+    var id = data;
+    console.log("clicked " + id);
+    socket.send(id);
+
+}
 
 
 $('div[name="planet"]').click(function () {
 
-    var id = this.id;
-    console.log("clicked " + id);
-    socket.send(id);
+    SendData(this.id);
 
-    //$.ajax({
-    //    type: "POST",
-    //    url: "./test",
-    //    data: { id: id},
-    //    dataType: "text"
-       
-    //});
 });
+
+$('button[name="planet"]').click(function () {
+
+    SendData(this.id);
+
+});
+
+
+//$('div[name="planet"]').click(function () {
+
+//    var id = this.id;
+//    console.log("clicked " + id);
+//    socket.send(id);
+
+//    //$.ajax({
+//    //    type: "POST",
+//    //    url: "./test",
+//    //    data: { id: id},
+//    //    dataType: "text"
+
+//    //});
+//});
+
+
 
 
 
