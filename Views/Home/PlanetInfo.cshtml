@@ -2,87 +2,91 @@
 @model SolarSystem_GRP5.Models.ViewModels.PlanetInfoView
 
 <link rel="stylesheet" href="~/css/infostyle.css">
-<script src="~/js/site.js"></script>
+<script src="~/js/InfoPage.js"></script>
 
+@if (Model.Planet != null)
+{
+    <div>
+        <img src="@Model.Planet.ImagePath">
 
-<div>
-    <img src="@Model.Planet.ImagePath">
-
-    <table>
-        <tr class="h1"> 
-        <th>@Model.PlanetInfo.Name</th>
-        </tr>
-
-        <tr class="h2">
-        <th>@Model.Resources.StringValues["lang.planet.diameter"]</th>
-        </tr>
-
-        <tr class="hh">
-        <th>
-            <h2>
-                @Model.PlanetInfo.Diameter
-            </h2>
-        </th>
-        </tr>
-
-        <tr class="h3">
-        <th>@Model.Resources.StringValues["lang.planet.materials"]</th>
-        </tr>
-        
-        <tr class="hb">
-            <th>
-                <h3>
-                    @Model.PlanetInfo.Materials
-                </h3>
-            </th>
-            </tr>
-        
-        <tr class="h4">
-        <th>@Model.Resources.StringValues["lang.planet.dist"]</th>
-        </tr>
-
-        <tr class="ho">
-            <th>
-                <h4>
-                    @Model.PlanetInfo.Distance_from_sun
-                </h4>
-            </th>
+        <table>
+            <tr class="h1">
+                <th>@Model.PlanetInfo.Name</th>
             </tr>
 
-        <tr class="h5">
-        <th>@Model.Resources.StringValues["lang.planet.moons"]</th>
-        </tr>
-
-        <tr class="hc">
-            <th>
-                <h5>
-                    @Model.PlanetInfo.Moons
-                </h5>
-            </th>
+            <tr class="h2">
+                <th>@Model.Resources.StringValues["lang.planet.diameter"]</th>
             </tr>
 
-        <tr class="h6">
-        <th>@Model.Resources.StringValues["lang.planet.atmosphere"]</th>
-        </tr>
-
-        <tr class="hd">
-            <th>
-                <h6>
-                    @Model.PlanetInfo.Atmosphere
-                </h6>
-            </th>
+            <tr class="hh">
+                <th>
+                    <h2>
+                        @Model.PlanetInfo.Diameter
+                    </h2>
+                </th>
             </tr>
 
-        <tr class="h7">
-        <th>@Model.Resources.StringValues["lang.planet.desc"]</th>
-        </tr>
-
-        <tr class="hi">
-            <th>
-                <p>
-                    @Model.PlanetInfo.Description
-                </p>
-            </th>
+            <tr class="h3">
+                <th>@Model.Resources.StringValues["lang.planet.materials"]</th>
             </tr>
-    </table>
-</div>
+
+            <tr class="hb">
+                <th>
+                    <h3>
+                        @Model.PlanetInfo.Materials
+                    </h3>
+                </th>
+            </tr>
+
+            <tr class="h4">
+                <th>@Model.Resources.StringValues["lang.planet.dist"]</th>
+            </tr>
+
+            <tr class="ho">
+                <th>
+                    <h4>
+                        @Model.PlanetInfo.Distance_from_sun
+                    </h4>
+                </th>
+            </tr>
+
+            <tr class="h5">
+                <th>@Model.Resources.StringValues["lang.planet.moons"]</th>
+            </tr>
+
+            <tr class="hc">
+                <th>
+                    <h5>
+                        @Model.PlanetInfo.Moons
+                    </h5>
+                </th>
+            </tr>
+
+            <tr class="h6">
+                <th>@Model.Resources.StringValues["lang.planet.atmosphere"]</th>
+            </tr>
+
+            <tr class="hd">
+                <th>
+                    <h6>
+                        @Model.PlanetInfo.Atmosphere
+                    </h6>
+                </th>
+            </tr>
+
+            <tr class="h7">
+                <th>@Model.Resources.StringValues["lang.planet.desc"]</th>
+            </tr>
+
+            <tr class="hi">
+                <th>
+                    <p>
+                        @Model.PlanetInfo.Description
+                    </p>
+                </th>
+            </tr>
+        </table>
+    </div>
+}
+
+

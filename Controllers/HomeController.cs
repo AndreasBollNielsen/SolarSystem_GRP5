@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
+using System.Net.WebSockets;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SolarSystem_GRP5.Controllers
@@ -31,6 +34,25 @@ namespace SolarSystem_GRP5.Controllers
            // ViewData["title"] = logic.GetResource("lang.cake");
 
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult PlanetInfo(string id)
+        {
+            SetCulture();
+            Logic logic = new Logic(configuration);
+
+            PlanetInfoView viewmodel = new PlanetInfoView();
+            viewmodel.PlanetInfo = logic.GetPlanetInfo(id);
+            viewmodel.Resources = logic.GetPageResources("lang.planet");
+            viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
+            viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
+            viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
+
+            viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
+
+
+            return View(viewmodel);
         }
 
         public IActionResult SelectPage(string submit)
@@ -65,13 +87,13 @@ namespace SolarSystem_GRP5.Controllers
             else
             {
                 PlanetInfoView viewmodel = new PlanetInfoView();
-                viewmodel.PlanetInfo = logic.GetPlanetInfo("neptune");
-                viewmodel.Resources = logic.GetPageResources("lang.planet");
-                viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
-                viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
-                viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
+                //viewmodel.PlanetInfo = logic.GetPlanetInfo("neptune");
+                //viewmodel.Resources = logic.GetPageResources("lang.planet");
+                //viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
+                //viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
+                //viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
 
-                viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
+                //viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
                
 
 
@@ -114,6 +136,44 @@ namespace SolarSystem_GRP5.Controllers
             //send a broadcast via websocket to server with name of planet
 
             return RedirectToAction("SelectPage","Home", "Controller");
+        }
+
+        //websocket
+        [HttpGet("/ws")]
+        public async Task Get()
+        {
+            if (HttpContext.WebSockets.IsWebSocketRequest)
+            {
+                using var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
+               // _logger.Log(LogLevel.Information, "WebSocket connection established");
+                await Echo(webSocket);
+               
+            }
+            else
+            {
+                HttpContext.Response.StatusCode = 400;
+            }
+        }
+
+        private async Task Echo(WebSocket webSocket)
+        {
+            var buffer = new byte[20];
+            var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+          //  _logger.Log(LogLevel.Information, "Message received from Client");
+            Debug.WriteLine("echo!");
+            while (!result.CloseStatus.HasValue)
+            {
+                //  var serverMsg = Encoding.UTF8.GetBytes($"Server: Hello. You said: {Encoding.UTF8.GetString(buffer)}");
+                var serverMsg = Encoding.UTF8.GetBytes($"{Encoding.UTF8.GetString(buffer)}");
+                await webSocket.SendAsync(new ArraySegment<byte>(serverMsg, 0, serverMsg.Length), result.MessageType, result.EndOfMessage, CancellationToken.None);
+             //   _logger.Log(LogLevel.Information, "Message sent to Client");
+
+                result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+              //  _logger.Log(LogLevel.Information, "Message received from Client");
+
+            }
+            await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+            //_logger.Log(LogLevel.Information, "WebSocket connection closed");
         }
     }
 }

@@ -83,7 +83,7 @@ namespace SolarSystem_GRP5
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
-
+            app.UseWebSockets();
             //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

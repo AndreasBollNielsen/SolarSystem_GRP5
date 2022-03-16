@@ -1,5 +1,4 @@
-﻿
-var socket;
+﻿var socket;
 var scheme = document.location.protocol === "https:" ? "wss" : "ws";
 var port = document.location.port ? (":" + document.location.port) : "";
 var connectionUrl = scheme + "://" + document.location.hostname + port + "/ws";
@@ -12,34 +11,22 @@ window.onload = function () {
     //test connectivity
     socket.onopen = function (event) {
 
+        
         console.log("connection established...");
-
     };
 
-    //recieve echo message
+     //recieve echo message
     socket.onmessage = function (event) {
-        console.log("connection established...");
+        console.log(event.data);
+
+        $.ajax({
+            type: "POST",
+            url: "./PlanetInfo",
+            data: { id: event.data },
+            dataType: "text"
+
+        });
     };
 
 
 };
-
-
-
-$('div[name="planet"]').click(function () {
-
-    var id = this.id;
-   
-    socket.send(id);
-
-    //$.ajax({
-    //    type: "POST",
-    //    url: "./test",
-    //    data: { id: id},
-    //    dataType: "text"
-       
-    //});
-});
-
-
-
