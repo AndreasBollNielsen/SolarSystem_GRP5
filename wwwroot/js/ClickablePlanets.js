@@ -2,7 +2,9 @@
 var socket;
 var scheme = document.location.protocol === "https:" ? "wss" : "ws";
 var port = document.location.port ? (":" + document.location.port) : "";
-var connectionUrl = scheme + "://" + document.location.hostname + port + "/ws";
+var ip = "192.168.1.141";
+var local = document.location.hostname;
+var connectionUrl = scheme + "://" + local + port + "/ws";
 
 window.onload = function () {
 
@@ -29,7 +31,7 @@ window.onload = function () {
 $('div[name="planet"]').click(function () {
 
     var id = this.id;
-   
+    console.log("clicked " + id);
     socket.send(id);
 
     //$.ajax({
