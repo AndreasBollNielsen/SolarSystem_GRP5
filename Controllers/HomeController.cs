@@ -39,28 +39,29 @@ namespace SolarSystem_GRP5.Controllers
             return View();
         }
 
-        [HttpPost]
+       
         public IActionResult PlanetInfo(string id)
         {
             SetCulture();
             Logic logic = new Logic(configuration);
 
             PlanetInfoView viewmodel = new PlanetInfoView();
-            if (id != null)
+            if (id == null)
             {
-                ModelState.Clear();
-                viewmodel.PlanetInfo = logic.GetPlanetInfo(id);
-                viewmodel.Resources = logic.GetPageResources("lang.planet");
-                viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
-                viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
-                viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
-
-                viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
+                id = "mars";
+               
             }
+            ModelState.Clear();
+            viewmodel.PlanetInfo = logic.GetPlanetInfo(id);
+            viewmodel.Resources = logic.GetPageResources("lang.planet");
+            viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
+            viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
+            viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
 
-
+            viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
 
             return View(viewmodel);
+          //  return View(viewmodel);
         }
 
         public IActionResult SelectPage(string submit)
@@ -95,17 +96,17 @@ namespace SolarSystem_GRP5.Controllers
             else
             {
                 PlanetInfoView viewmodel = new PlanetInfoView();
-                //viewmodel.PlanetInfo = logic.GetPlanetInfo("neptune");
-                //viewmodel.Resources = logic.GetPageResources("lang.planet");
-                //viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
-                //viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
-                //viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
+                viewmodel.PlanetInfo = logic.GetPlanetInfo("neptune");
+                viewmodel.Resources = logic.GetPageResources("lang.planet");
+                viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
+                viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
+                viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
 
-                //viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
+                viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
 
 
 
-                return View("PlanetInfo", viewmodel);
+                return View("PlanetInfo",viewmodel);
             }
 
 
@@ -140,11 +141,11 @@ namespace SolarSystem_GRP5.Controllers
         [HttpPost]
         public IActionResult test(string id)
         {
-            Console.WriteLine(id);
+
 
             //send a broadcast via websocket to server with name of planet
-
-            return RedirectToAction("SelectPage", "Home", "Controller");
+            return RedirectToPage("test");
+            //return RedirectToAction("PlanetInfo", new { id = id });
         }
 
         //websocket
