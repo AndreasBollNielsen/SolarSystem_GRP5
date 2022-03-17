@@ -7,17 +7,17 @@ var questionBank = [
     },
     {
         question: dict["lang.quiz.question2"],
-        option: [dict["lang.quiz.q2.answer2"], dict["lang.quiz.q2.answer2"], dict["lang.quiz.q2.answer3"], dict["lang.quiz.q2.answer4"]],
+        option: [dict["lang.quiz.q2.answer1"], dict["lang.quiz.q2.answer2"], dict["lang.quiz.q2.answer3"], dict["lang.quiz.q2.answer4"]],
         answer: dict["lang.quiz.rightAnswer2"]
     },
     {
         question: dict["lang.quiz.question3"],
-        option: [dict["lang.quiz.q3.answer3"], dict["lang.quiz.q3.answer2"], dict["lang.quiz.q3.answer3"], dict["lang.quiz.q3.answer4"]],
+        option: [dict["lang.quiz.q3.answer1"], dict["lang.quiz.q3.answer2"], dict["lang.quiz.q3.answer3"], dict["lang.quiz.q3.answer4"]],
         answer: dict["lang.quiz.rightAnswer3"]
     },
     {
         question: dict["lang.quiz.question4"],
-        option: [dict["lang.quiz.q4.answer4"], dict["lang.quiz.q4.answer2"], dict["lang.quiz.q4.answer3"], dict["lang.quiz.q4.answer4"]],
+        option: [dict["lang.quiz.q4.answer1"], dict["lang.quiz.q4.answer2"], dict["lang.quiz.q4.answer3"], dict["lang.quiz.q4.answer4"]],
         answer: dict["lang.quiz.rightAnswer4"]
     },
     {
