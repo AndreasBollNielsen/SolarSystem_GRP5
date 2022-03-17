@@ -46,7 +46,7 @@ namespace SolarSystem_GRP5.Controllers
             string[] data = id.Split('/');
             id = data[1];
             var culture = new CultureInfo(data[0]);
-            Thread.CurrentThread.CurrentUICulture = culture;
+            HttpContext.Session.SetString("language", culture.Name);
 
             SetCulture();
             Logic logic = new Logic(configuration);
