@@ -48,6 +48,7 @@ namespace SolarSystem_GRP5.Controllers
             PlanetInfoView viewmodel = new PlanetInfoView();
             if (id != null)
             {
+                ModelState.Clear();
                 viewmodel.PlanetInfo = logic.GetPlanetInfo(id);
                 viewmodel.Resources = logic.GetPageResources("lang.planet");
                 viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];

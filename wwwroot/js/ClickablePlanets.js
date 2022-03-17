@@ -4,7 +4,7 @@ var scheme = document.location.protocol === "https:" ? "wss" : "ws";
 var port = document.location.port ? (":" + document.location.port) : "";
 var ip = "192.168.1.141";
 var local = document.location.hostname;
-var connectionUrl = scheme + "://" + local + port + "/ws";
+var connectionUrl = scheme + "://" + ip + port + "/ws";
 
 window.onload = function () {
 
