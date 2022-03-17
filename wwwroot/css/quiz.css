@@ -14,6 +14,27 @@ body{
     background-repeat: no-repeat;
     height: 100vh;
 }
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background: linear-gradient(115deg, rgba(101,151,209,0.8),rgba(202,102,211,0.5)),url(/quizbg.jpg);
+}
+
+
+.button {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+
+}
+
 #title{
     text-align: center;
     padding: 0.8rem 0;
@@ -37,57 +58,55 @@ color: #e0dfdc;
 font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
 text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222,
 }
-#question{
-    position: fixed;
+#question {
+    position: absolute;
     top: 100pt;
-    right: 90px; 
-    margin-bottom: 1rem; 
-    background-color: #333;
-color: #e0dfdc;
-font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
-text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222,
+    margin-bottom: 1rem;
+    color: #e0dfdc;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+    text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222,
 }
-.option{
+.option {
     position: absolute;
     top: -50px;
     left: 20px;
     margin-bottom: 0.5rem;
     font-size: 2rem;
     border-bottom: solid 0.1rem black;
-    width: 24rem;
+    width: 50%;
     background: grey;
     border-radius: 1rem;
 }
-.option1{
+.option1 {
     position: absolute;
     right: -80px;
     bottom: 0px;
     margin-bottom: 0.5rem;
     font-size: 2rem;
     border-bottom: solid 0.1rem black;
-    width: 24rem;
+    width: 50%;
     background: grey;
     border-radius: 1rem;
 }
-.option2{
+.option2 {
     position: absolute;
     bottom: -70px;
     left: 20px;
     margin-bottom: 0.5rem;
     font-size: 2rem;
     border-bottom: solid 0.1rem black;
-    width: 24rem;
+    width: 50%;
     background: grey;
     border-radius: 1rem;
 }
-.option3{
+.option3 {
     position: absolute;
     right: -80px;
     bottom: -70px;
     margin-bottom: 0.5rem;
     font-size: 2rem;
     border-bottom: solid 0.1rem black;
-    width: 24rem;
+    width: 50%;
     background: grey;
     border-radius: 1rem;
 }
@@ -120,10 +139,8 @@ span{
 #answer{
     margin-top: 2.5rem;
 }
-#stat{
+#stat {
     position: absolute;
-    right: 970pt;
-    top: 290px;
     font-size: larger;
     margin-top: 4rem;
     color: white;
