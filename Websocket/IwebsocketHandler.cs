@@ -8,7 +8,7 @@ namespace SolarSystem_GRP5.Websocket
 {
     public interface IwebsocketHandler
     {
-        public async Task Handle(Guid id, WebSocket webSocket)
+        public async Task Handle(string culture, WebSocket webSocket)
         {
 
         }

@@ -2,8 +2,8 @@
 
 
 <link rel="stylesheet" href="~/css/quiz.css">
-<button class="button">Return</button>
-<h1 id="title">Solar System Quiz</h1>
+<button class="button" id="return">@Model.Resources.StringValues["lang.quiz.return"]</button>
+<h1 id="title">@Model.Resources.StringValues["lang.quiz.title"]</h1>
 <div class="background">
 </div>
 
@@ -22,7 +22,7 @@
     </div>
 
     <div class="buttons">
-        <button type="button" class="next">Next</button>
+        <button type="button" class="next">@Model.Resources.StringValues["lang.quiz.next"]</button>
     </div>
 
 </div>
@@ -30,18 +30,18 @@
 <!-- scoreboard section -->
 <div id="scoreboard">
     <img src="/logo.png" alt="">
-    <h2 id="score-title">Your Score</h2>
+    <h2 id="score-title">@Model.Resources.StringValues["lang.quiz.score"]</h2>
     <h2 id="score"></h2>
-    <button type="button" id="score-btn" onclick="backToQuiz()">Back to Quiz</button>
-    <button type="button" id="check-answer" onclick="checkAnswer()">Check Answers</button>
+    <button type="button" id="score-btn" onclick="backToQuiz()">@Model.Resources.StringValues["lang.quiz.returnToQuiz"]</button>
+    <button type="button" id="check-answer" onclick="checkAnswer()">@Model.Resources.StringValues["lang.quiz.checkAnswers"]</button>
 </div>
 
 <!-- answers section -->
 <div id="answerBank">
-    <h2>Answers :</h2>
+    <h2>@Model.Resources.StringValues["lang.quiz.answer"] :</h2>
     <ol type="1" id="answers">
     </ol>
-    <button type="button" id="score-btn" onclick="backToQuiz()">Back to Quiz</button>
+    <button type="button" id="score-btn" onclick="backToQuiz()">@Model.Resources.StringValues["lang.quiz.returnToQuiz"]</button>
 </div>
 
 
@@ -52,14 +52,7 @@
 
     var dict = JSON.parse(viewobject);
     console.log(dict["lang.quiz.question1"]);
-    //var dict = {};
-
-    //for (var i = 0, emp; i < viewobject.length; i++) {
-    //    emp = result.employees[i];
-    //    dict[emp.id] = emp;
-    //}
-
-   // console.log(viewobject);
+   
    
 </script>
 <div class="Fullscreen" onclick="Full()">

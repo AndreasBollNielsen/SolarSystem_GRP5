@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace SolarSystem_GRP5.Websocket
     {
         public ConcurrentDictionary<string, WebSocket> _sockets = new ConcurrentDictionary<string, WebSocket>();
 
-        public async Task Handle(Guid id, WebSocket webSocket)
+        public async Task Handle(string _culture, WebSocket webSocket)
         {
 
           //  Console.WriteLine(_sockets.Count);
@@ -26,21 +27,23 @@ namespace SolarSystem_GRP5.Websocket
 
             while (webSocket.State == WebSocketState.Open)
             {
-                var message = await ReceiveMessage(id, webSocket);
+                string culture = _culture;
+                var message = await ReceiveMessage(culture, webSocket);
                 if (message != null)
                     await SendMessageToSockets(message);
             }
         }
 
-        private async Task<string> ReceiveMessage(Guid id, WebSocket webSocket)
+        private async Task<string> ReceiveMessage(string culture, WebSocket webSocket)
         {
             var arraySegment = new ArraySegment<byte>(new byte[4096]);
             var receivedMessage = await webSocket.ReceiveAsync(arraySegment, CancellationToken.None);
             if (receivedMessage.MessageType == WebSocketMessageType.Text)
             {
+
                 var message = Encoding.Default.GetString(arraySegment).TrimEnd('\0');
                 if (!string.IsNullOrWhiteSpace(message))
-                    return $"{message}";
+                    return $"{culture}/{message}";
             }
             return null;
         }

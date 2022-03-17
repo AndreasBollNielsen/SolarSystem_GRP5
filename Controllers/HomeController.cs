@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
+using System.Globalization;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
@@ -39,9 +40,14 @@ namespace SolarSystem_GRP5.Controllers
             return View();
         }
 
-       
+
         public IActionResult PlanetInfo(string id)
         {
+            string[] data = id.Split('/');
+            id = data[1];
+            var culture = new CultureInfo(data[0]);
+            Thread.CurrentThread.CurrentUICulture = culture;
+
             SetCulture();
             Logic logic = new Logic(configuration);
 
@@ -49,19 +55,21 @@ namespace SolarSystem_GRP5.Controllers
             if (id == null)
             {
                 id = "mars";
-               
+
             }
             ModelState.Clear();
             viewmodel.PlanetInfo = logic.GetPlanetInfo(id);
             viewmodel.Resources = logic.GetPageResources("lang.planet");
+            var temp = logic.GetPageResources("lang.solar");
             viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
             viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
             viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
+            viewmodel.PlanetInfo.Name = temp.StringValues[$"lang.solar.{id}"];
 
-            viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
+            viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{id}.png" };
 
             return View(viewmodel);
-          //  return View(viewmodel);
+            //  return View(viewmodel);
         }
 
         public IActionResult SelectPage(string submit)
@@ -96,17 +104,17 @@ namespace SolarSystem_GRP5.Controllers
             else
             {
                 PlanetInfoView viewmodel = new PlanetInfoView();
-                viewmodel.PlanetInfo = logic.GetPlanetInfo("neptune");
+                viewmodel.PlanetInfo = logic.GetPlanetInfo("earth");
                 viewmodel.Resources = logic.GetPageResources("lang.planet");
                 viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
                 viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
                 viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
+                viewmodel.PlanetInfo.Name = "Jorden";
+                viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/earth.png" };
 
-                viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
 
 
-
-                return View("PlanetInfo",viewmodel);
+                return View("PlanetInfo", viewmodel);
             }
 
 
@@ -158,7 +166,17 @@ namespace SolarSystem_GRP5.Controllers
 
                 // _logger.Log(LogLevel.Information, "WebSocket connection established");
                 //  await Echo(webSocket);
-                await WebsocketHandler.Handle(Guid.NewGuid(), webSocket);
+                string culture = "";
+                if (HttpContext.Session.GetString("Language") != null)
+                {
+                    culture = HttpContext.Session.GetString("Language");
+
+                }
+                else
+                {
+                    culture = Thread.CurrentThread.CurrentCulture.Name;
+                }
+                await WebsocketHandler.Handle(culture, webSocket);
 
             }
             else
