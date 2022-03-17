@@ -4,63 +4,22 @@
 <link rel="stylesheet" href="~/css/SolarSystemStyle.css">
 <link rel="stylesheet" href="~/css/stylelist.css">
 
-<div class="container">
-    
+<div class="background">
 </div>
-
 <div class="myList">
-    <ul>
-        <table id="info">
-            <tr class="h1">
-                <th><h1 style="opacity: 100% !important; font-size:2vw ">Planet list</h1></th>
-            </tr>
-            <tr>
-                <th>
-                    <button class="h2" type="button" id="sun" name="planet" onclick="send('sun')">@Model.Resources.StringValues["lang.solar.sun"]</button>
-
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <button class="h2" type="button" id="mercury" name="planet">@Model.Resources.StringValues["lang.solar.mercury"]</button>
-
-                </th>
-            </tr>
-            <tr>
-                <th><button class="h2" type="button" id="venus" name="planet">@Model.Resources.StringValues["lang.solar.venus"]</button></th>
-
-            </tr>
-            <tr>
-                <th><button class="h2" type="button" id="earth" name="planet">@Model.Resources.StringValues["lang.solar.earth"]</button></th>
-
-            </tr>
-            <tr>
-                <th><button class="h2" type="button" id="mars">@Model.Resources.StringValues["lang.solar.mars"]</button></th>
-
-            </tr>
-            <tr>
-                <th><button class="h2" type="button" id="jupiter" name="planet">@Model.Resources.StringValues["lang.solar.jupiter"]</button></th>
-
-            </tr>
-            <tr>
-                <th><button class="h2" type="button" id="saturn" name="planet">@Model.Resources.StringValues["lang.solar.saturn"]</button></th>
-
-            </tr>
-            <tr>
-                <th><button class="h2" type="button" id="uranus" name="planet">@Model.Resources.StringValues["lang.solar.uranus"]</button></th>
-
-            </tr>
-            <tr>
-                <th><button class="h2" type="button" id="neptune" name="planet">@Model.Resources.StringValues["lang.solar.neptune"]</button></th>
-
-            </tr>
-            <tr>
-                <th><button class="h2" type="button" id="pluto" name="planet"> Pluto </button></th>
-
-            </tr>
-
-        </table>
-    </ul>
+    <div class="PlanetList">
+        <h1>Planet list</h1>
+        <button id="sun" name="planet">@Model.Resources.StringValues["lang.solar.sun"]</button>
+        <button id="mercury" name="planet">@Model.Resources.StringValues["lang.solar.mercury"]</button>
+        <button id="venus" name="planet">@Model.Resources.StringValues["lang.solar.venus"]</button>
+        <button id="earth" name="planet">@Model.Resources.StringValues["lang.solar.earth"]</button>
+        <button id="mars" name="planet">@Model.Resources.StringValues["lang.solar.mars"]</button>
+        <button id="jupiter" name="planet">@Model.Resources.StringValues["lang.solar.jupiter"]</button>
+        <button id="saturn" name="planet">@Model.Resources.StringValues["lang.solar.saturn"]</button>
+        <button id="uranus" name="planet">@Model.Resources.StringValues["lang.solar.uranus"]</button>
+        <button id="neptune" name="planet">@Model.Resources.StringValues["lang.solar.neptune"]</button>
+        <button id="pluto" name="planet">@Model.Resources.StringValues["lang.solar.pluto"]</button>
+    </div>
 </div>
 
 <div class="myBox opening hide-UI view-2D zoom-large data-close controls-close">
@@ -153,7 +112,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="sun" name="planet">
+                <div class="sun" id="sun" name="planet">
                     <dl class="infos">
                         <dt>Sun</dt>
                         <dd><span></span></dd>
@@ -165,10 +124,11 @@
 </div>
 
 <div class="">
-    <table id="table">
+    <table id="table" onclick="Full()">
         <tr class="quiz">
             <th id="quiz">Quiz</th>
         </tr>
     </table>
 </div>
+<script src="~/js/Fullscreen.js"></script>
 <script src="~/js/ClickablePlanets.js"></script>
