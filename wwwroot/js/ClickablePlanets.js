@@ -34,14 +34,8 @@ window.onload = function () {
 function SendData(data) {
 
     var id = data;
-    //console.log("clicked " + id);
-    console.log(socket);
-    if (socket.readyState == 3) {
-       // socket = new WebSocket(connectionUrl);
-    }
-
     socket.send(id);
-
+    
 }
 
 //click event from divs
