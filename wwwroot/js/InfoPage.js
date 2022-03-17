@@ -3,7 +3,7 @@ var scheme = document.location.protocol === "https:" ? "wss" : "ws";
 var port = document.location.port ? (":" + document.location.port) : "";
 var ip = "192.168.1.141";
 var local = document.location.hostname;
-var connectionUrl = scheme + "://" + ip + port + "/ws";
+var connectionUrl = scheme + "://" + local + port + "/ws";
 
 window.onload = function () {
 
@@ -21,13 +21,30 @@ window.onload = function () {
     socket.onmessage = function (event) {
         console.log(event.data);
 
-        $.ajax({
-            type: "POST",
-            url: "./PlanetInfo",
-            data: { id: event.data },
-            dataType: "text"
+        //$.ajax({
+        //    type: "POST",
+        //    url: "./test",
+        //    data: { id: event.data },
+        //    dataType: "text",
+        //    success: function (data) {
+        //        window.location.href = "./PlanetInfo";
+        //    }
+        //});
 
-        });
+
+        form = document.createElement('form');
+        document.body.appendChild(form);
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.name = "id";
+        input.value = event.data;
+
+        form.appendChild(input);
+       
+        form.method = 'post';
+        form.action = "./PlanetInfo";
+        form.submit();
+
     };
 
 
