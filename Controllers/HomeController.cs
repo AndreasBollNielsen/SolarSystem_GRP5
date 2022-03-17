@@ -167,9 +167,9 @@ namespace SolarSystem_GRP5.Controllers
                 // _logger.Log(LogLevel.Information, "WebSocket connection established");
                 //  await Echo(webSocket);
                 string culture = "";
-                if (HttpContext.Session.GetString("Language") != null)
+                if (HttpContext.Session.GetString("language") != null)
                 {
-                    culture = HttpContext.Session.GetString("Language");
+                    culture = HttpContext.Session.GetString("language");
 
                 }
                 else
