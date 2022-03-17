@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using SolarSystem_GRP5.DAL;
 using SolarSystem_GRP5.Models;
 using SolarSystem_GRP5.Models.ViewModels;
+using SolarSystem_GRP5.Websocket;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,18 +21,20 @@ namespace SolarSystem_GRP5.Controllers
 {
     public class HomeController : BaseController
     {
-       
+
         private readonly IConfiguration configuration;
-        public HomeController(IConfiguration config)
+        public IwebsocketHandler WebsocketHandler { get; }
+        public HomeController(IConfiguration config, IwebsocketHandler websockethandler)
         {
             this.configuration = config;
+            WebsocketHandler = websockethandler;
         }
 
         public IActionResult Index()
         {
             SetCulture();
             Logic logic = new Logic(configuration);
-           // ViewData["title"] = logic.GetResource("lang.cake");
+            // ViewData["title"] = logic.GetResource("lang.cake");
 
             return View();
         }
@@ -43,13 +46,17 @@ namespace SolarSystem_GRP5.Controllers
             Logic logic = new Logic(configuration);
 
             PlanetInfoView viewmodel = new PlanetInfoView();
-            viewmodel.PlanetInfo = logic.GetPlanetInfo(id);
-            viewmodel.Resources = logic.GetPageResources("lang.planet");
-            viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
-            viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
-            viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
+            if (id != null)
+            {
+                viewmodel.PlanetInfo = logic.GetPlanetInfo(id);
+                viewmodel.Resources = logic.GetPageResources("lang.planet");
+                viewmodel.PlanetInfo.Atmosphere = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.atmosphere"];
+                viewmodel.PlanetInfo.Description = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.description"];
+                viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
 
-            viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
+                viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
+            }
+
 
 
             return View(viewmodel);
@@ -57,13 +64,13 @@ namespace SolarSystem_GRP5.Controllers
 
         public IActionResult SelectPage(string submit)
         {
-            if(submit == null)
+            if (submit == null)
             {
-                if(HttpContext.Session.GetString("userType") != null)
+                if (HttpContext.Session.GetString("userType") != null)
                 {
                     submit = HttpContext.Session.GetString("userType");
                 }
-                
+
             }
             else
             {
@@ -80,7 +87,7 @@ namespace SolarSystem_GRP5.Controllers
                 viewmodel.Planets = logic.GetPlanets();
                 viewmodel.Resources = logic.GetPageResources("lang.solar");
 
-                
+
 
                 return View("SolarSystem", viewmodel);
             }
@@ -94,17 +101,18 @@ namespace SolarSystem_GRP5.Controllers
                 //viewmodel.PlanetInfo.Materials = viewmodel.Resources.StringValues[$"lang.planet.{viewmodel.PlanetInfo.Name}.materials"];
 
                 //viewmodel.Planet = new Planet { Name = viewmodel.PlanetInfo.Name, ImagePath = $"/Graphics/{viewmodel.PlanetInfo.Name}.png" };
-               
 
 
-                return View("PlanetInfo",viewmodel);
+
+                return View("PlanetInfo", viewmodel);
             }
 
-           
+
         }
 
         public IActionResult Quiz()
         {
+            SetCulture();
             Logic logic = new Logic(configuration);
             QuizView viewModel = new QuizView();
 
@@ -117,13 +125,13 @@ namespace SolarSystem_GRP5.Controllers
         [HttpPost]
         public IActionResult ChangeLanguage(string culture, string returnUrl)
         {
-            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
                 new CookieOptions
                 {
                     Expires = DateTimeOffset.UtcNow.AddDays(7)
                 }
             );
-            HttpContext.Session.SetString("language",culture);
+            HttpContext.Session.SetString("language", culture);
             ViewData["lang.nav.title"] = "en test";
             return LocalRedirect(returnUrl);
         }
@@ -135,7 +143,7 @@ namespace SolarSystem_GRP5.Controllers
 
             //send a broadcast via websocket to server with name of planet
 
-            return RedirectToAction("SelectPage","Home", "Controller");
+            return RedirectToAction("SelectPage", "Home", "Controller");
         }
 
         //websocket
@@ -145,9 +153,11 @@ namespace SolarSystem_GRP5.Controllers
             if (HttpContext.WebSockets.IsWebSocketRequest)
             {
                 using var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
-               // _logger.Log(LogLevel.Information, "WebSocket connection established");
-                await Echo(webSocket);
-               
+
+                // _logger.Log(LogLevel.Information, "WebSocket connection established");
+                //  await Echo(webSocket);
+                await WebsocketHandler.Handle(Guid.NewGuid(), webSocket);
+
             }
             else
             {
@@ -159,17 +169,17 @@ namespace SolarSystem_GRP5.Controllers
         {
             var buffer = new byte[20];
             var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-          //  _logger.Log(LogLevel.Information, "Message received from Client");
+            //  _logger.Log(LogLevel.Information, "Message received from Client");
             Debug.WriteLine("echo!");
             while (!result.CloseStatus.HasValue)
             {
                 //  var serverMsg = Encoding.UTF8.GetBytes($"Server: Hello. You said: {Encoding.UTF8.GetString(buffer)}");
                 var serverMsg = Encoding.UTF8.GetBytes($"{Encoding.UTF8.GetString(buffer)}");
                 await webSocket.SendAsync(new ArraySegment<byte>(serverMsg, 0, serverMsg.Length), result.MessageType, result.EndOfMessage, CancellationToken.None);
-             //   _logger.Log(LogLevel.Information, "Message sent to Client");
+                //   _logger.Log(LogLevel.Information, "Message sent to Client");
 
                 result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-              //  _logger.Log(LogLevel.Information, "Message received from Client");
+                //  _logger.Log(LogLevel.Information, "Message received from Client");
 
             }
             await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);

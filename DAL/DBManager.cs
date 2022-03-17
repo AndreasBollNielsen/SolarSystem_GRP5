@@ -111,13 +111,15 @@ namespace SolarSystem_GRP5.DAL
                 {
                     question = new Quiz()
                     {
-                        Question = (string)reader[$"lang.quiz.question{counter}"],
-                        Answer = (string)reader[$"lang.quiz.rightAnswer{counter}"],
-                        Answers = new List<string>() { $"lang.quiz.q1{counter}.answer1", $"lang.quiz.q2{counter}.answer2", $"lang.quiz.q3{counter}.answer3", $"lang.quiz.q4{counter}.answer4" }
-                       
+                        Question = (string)reader[$"question"],
+                        Answer = (string)reader[$"right_answer"],
+                        Answers = new List<string>() { new string((string)reader[$"answer1"]), new string((string)reader[$"answer2"]), new string((string)reader[$"answer3"]), new string((string)reader[$"answer4"]) }
+
                     };
                     quiz.Add(question);
                     counter++;
+
+
                 }
                 catch (System.Exception e)
                 {
@@ -125,7 +127,7 @@ namespace SolarSystem_GRP5.DAL
                     throw;
                 }
 
-
+                
             }
 
             return quiz;

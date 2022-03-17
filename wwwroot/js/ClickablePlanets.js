@@ -20,7 +20,7 @@ window.onload = function () {
 
     //recieve echo message
     socket.onmessage = function (event) {
-        console.log("connection established...");
+        console.log(event.data);
     };
 
 
@@ -44,6 +44,12 @@ $('div[name="planet"]').click(function () {
 $('button[name="planet"]').click(function () {
 
     SendData(this.id);
+
+});
+
+$("#quiz").click(function ()
+{
+    window.location.href = "./Quiz";
 
 });
 

@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Websocket\" />
     <Folder Include="wwwroot\Graphics\" />
   </ItemGroup>
 

@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using SolarSystem_GRP5.DAL;
+using SolarSystem_GRP5.Websocket;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -37,6 +38,7 @@ namespace SolarSystem_GRP5
 
             services.AddLocalization();
             services.AddControllersWithViews().AddViewLocalization();
+            services.AddSingleton<IwebsocketHandler, SocketHandler>();
 
 
             DBManager dbContext = new DBManager(Configuration);
