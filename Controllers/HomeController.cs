@@ -25,22 +25,24 @@ namespace SolarSystem_GRP5.Controllers
 
         private readonly IConfiguration configuration;
         public IwebsocketHandler WebsocketHandler { get; }
+
+        //constructor with dependency injections
         public HomeController(IConfiguration config, IwebsocketHandler websockethandler)
         {
             this.configuration = config;
             WebsocketHandler = websockethandler;
         }
 
+        //main page
         public IActionResult Index()
         {
             SetCulture();
             Logic logic = new Logic(configuration);
-            // ViewData["title"] = logic.GetResource("lang.cake");
-
+            
             return View();
         }
 
-
+        //method for showing planet info
         public IActionResult PlanetInfo(string id)
         {
             string[] data = id.Split('/');
@@ -72,6 +74,7 @@ namespace SolarSystem_GRP5.Controllers
             //  return View(viewmodel);
         }
 
+        //method for selecting controller page or solar system page.
         public IActionResult SelectPage(string submit)
         {
             if (submit == null)
@@ -120,6 +123,7 @@ namespace SolarSystem_GRP5.Controllers
 
         }
 
+        //method for going to quiz page
         public IActionResult Quiz()
         {
             SetCulture();
@@ -132,6 +136,7 @@ namespace SolarSystem_GRP5.Controllers
             return View(viewModel);
         }
 
+        //method for changing language
         [HttpPost]
         public IActionResult ChangeLanguage(string culture, string returnUrl)
         {
@@ -146,6 +151,7 @@ namespace SolarSystem_GRP5.Controllers
             return LocalRedirect(returnUrl);
         }
 
+        //testing websocket
         [HttpPost]
         public IActionResult test(string id)
         {
@@ -156,6 +162,7 @@ namespace SolarSystem_GRP5.Controllers
             //return RedirectToAction("PlanetInfo", new { id = id });
         }
 
+        //async task listening for websockets
         //websocket
         [HttpGet("/ws")]
         public async Task Get()
@@ -185,25 +192,26 @@ namespace SolarSystem_GRP5.Controllers
             }
         }
 
-        private async Task Echo(WebSocket webSocket)
-        {
-            var buffer = new byte[20];
-            var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            //  _logger.Log(LogLevel.Information, "Message received from Client");
-            Debug.WriteLine("echo!");
-            while (!result.CloseStatus.HasValue)
-            {
-                //  var serverMsg = Encoding.UTF8.GetBytes($"Server: Hello. You said: {Encoding.UTF8.GetString(buffer)}");
-                var serverMsg = Encoding.UTF8.GetBytes($"{Encoding.UTF8.GetString(buffer)}");
-                await webSocket.SendAsync(new ArraySegment<byte>(serverMsg, 0, serverMsg.Length), result.MessageType, result.EndOfMessage, CancellationToken.None);
-                //   _logger.Log(LogLevel.Information, "Message sent to Client");
+        //old code for websockets
+        //private async Task Echo(WebSocket webSocket)
+        //{
+        //    var buffer = new byte[20];
+        //    var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+        //    //  _logger.Log(LogLevel.Information, "Message received from Client");
+        //    Debug.WriteLine("echo!");
+        //    while (!result.CloseStatus.HasValue)
+        //    {
+        //        //  var serverMsg = Encoding.UTF8.GetBytes($"Server: Hello. You said: {Encoding.UTF8.GetString(buffer)}");
+        //        var serverMsg = Encoding.UTF8.GetBytes($"{Encoding.UTF8.GetString(buffer)}");
+        //        await webSocket.SendAsync(new ArraySegment<byte>(serverMsg, 0, serverMsg.Length), result.MessageType, result.EndOfMessage, CancellationToken.None);
+        //        //   _logger.Log(LogLevel.Information, "Message sent to Client");
 
-                result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-                //  _logger.Log(LogLevel.Information, "Message received from Client");
+        //        result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+        //        //  _logger.Log(LogLevel.Information, "Message received from Client");
 
-            }
-            await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
-            //_logger.Log(LogLevel.Information, "WebSocket connection closed");
-        }
+        //    }
+        //    await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+        //    //_logger.Log(LogLevel.Information, "WebSocket connection closed");
+        //}
     }
 }

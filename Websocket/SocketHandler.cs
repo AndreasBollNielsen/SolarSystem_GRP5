@@ -15,15 +15,10 @@ namespace SolarSystem_GRP5.Websocket
     {
         public ConcurrentDictionary<string, WebSocket> _sockets = new ConcurrentDictionary<string, WebSocket>();
 
+        //add sockets to dictionary and send/recieve data
         public async Task Handle(string _culture, WebSocket webSocket)
         {
-
-          //  Console.WriteLine(_sockets.Count);
-
             _sockets.TryAdd(Guid.NewGuid().ToString(), webSocket);
-            
-
-           // await SendMessageToSockets($"User with id <b>{id}</b> has joined the chat");
 
             while (webSocket.State == WebSocketState.Open)
             {
@@ -34,6 +29,7 @@ namespace SolarSystem_GRP5.Websocket
             }
         }
 
+        //recieve messages from websocket
         private async Task<string> ReceiveMessage(string culture, WebSocket webSocket)
         {
             var arraySegment = new ArraySegment<byte>(new byte[4096]);
@@ -48,6 +44,7 @@ namespace SolarSystem_GRP5.Websocket
             return null;
         }
 
+        //send message to websocket
         private async Task SendMessageToSockets(string message)
         {
             IEnumerable<WebSocket> toSentTo;

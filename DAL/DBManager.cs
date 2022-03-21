@@ -93,6 +93,7 @@ namespace SolarSystem_GRP5.DAL
             return planetInfo;
         }
 
+        //get quiz data
         internal List<Quiz> GetQuiz()
         {
             SqlConnection con = new SqlConnection(connectionString);
@@ -161,6 +162,7 @@ namespace SolarSystem_GRP5.DAL
             return languages;
         }
 
+        //get string value, based on culture
         internal StringResource GetStringValue(string cultureName, string stringName)
         {
             StringResource resource = new StringResource();
@@ -189,6 +191,7 @@ namespace SolarSystem_GRP5.DAL
             return resource;
         }
 
+        //get all string values based on page and culture
         internal List<StringResource> GetPageStringValues(string cultureName, string pageName)
         {
                 List<StringResource> resources = new List<StringResource>();

@@ -8,26 +8,7 @@ var connectionUrl = scheme + "://" + local + port + "/ws";
 
 window.onload = function () {
 
-    ////establish connection via websockt
-    //socket = new WebSocket(connectionUrl);
-
-    ////test connectivity
-    //socket.onopen = function (event) {
-
-    //    console.log("connection established...");
-
-    //};
-
-    ////recieve echo message
-    //socket.onmessage = function (event) {
-    //    console.log(event.data);
-    //};
-
-    //socket.onclose = function () {
-    //    console.log("reconnecting...");
-    //    socket = new WebSocket(connectionUrl);
-    //}
-
+    //create connection on page startup
     SetupConnection();
 };
 
@@ -77,6 +58,7 @@ function SetupConnection() {
         console.log(event.data);
     };
 
+    //reconnect if socket closes
     socket.onclose = function () {
         console.log("reconnecting...");
         setTimeout(SetupConnection, 500);

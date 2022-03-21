@@ -13,10 +13,10 @@ namespace SolarSystem_GRP5.Controllers
     public class BaseController : Controller
     {
 
-     
-        public  void SetCulture()
+        //method for setting language for the client
+        public void SetCulture()
         {
-            if(HttpContext.Session.GetString("language") != null)
+            if (HttpContext.Session.GetString("language") != null)
             {
                 var currentCulture = new CultureInfo(HttpContext.Session.GetString("language"));
                 Thread.CurrentThread.CurrentCulture = currentCulture;
@@ -27,8 +27,8 @@ namespace SolarSystem_GRP5.Controllers
                 var currentculture = Thread.CurrentThread.CurrentUICulture;
                 HttpContext.Session.SetString("language", currentculture.Name);
             }
-           
-          
+
+
         }
     }
 }

@@ -40,18 +40,18 @@ namespace SolarSystem_GRP5
             services.AddControllersWithViews().AddViewLocalization();
             services.AddSingleton<IwebsocketHandler, SocketHandler>();
 
-
+            //get languages from database
             DBManager dbContext = new DBManager(Configuration);
-
             var languages = dbContext.GetLanguages();
 
-
+            //create the cultures
             List <CultureInfo> cultures = new List<CultureInfo>();
             foreach (var lang in languages)
             {
                 cultures.Add(new CultureInfo(lang.Culture));
             }
-           // cultures.Add(new CultureInfo("EN-US"));
+           
+            //set default culture
             services.Configure<RequestLocalizationOptions>(options =>
             {
 

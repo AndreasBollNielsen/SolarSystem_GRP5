@@ -1,4 +1,4 @@
-//Question bank
+//Questions data
 var questionBank = [
     {
         question: dict["lang.quiz.question1"],
@@ -64,6 +64,7 @@ var points = document.getElementById('score');
 var span = document.querySelectorAll('span');
 var i = 0;
 var score = 0;
+
 //function to display questions
 function displayQuestion() {
     for (var a = 0; a < span.length; a++) {
@@ -128,5 +129,5 @@ $("#return").click(function () {
 
 });
 
-
+//display questions
 displayQuestion();
